@@ -4,16 +4,21 @@ import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 import bcrypt from "bcryptjs";
 import User, { TUser } from "../models/User";
 import config from ".";
+import AppError from "../errors/AppError";
+import httpStatus from "http-status";
 
 passport.use(
    new LocalStrategy({ usernameField: "email" }, async (email, password, done) => {
       try {
-         const user = await User.findOne({ email });
-         if (!user || !user.password) return done(null, false, { message: "Invalid credentials" });
+         const user: TUser | null = await User.findOne({ email });
+         if (!user || !user.password) {
+            return done(new AppError(httpStatus.UNAUTHORIZED, "Invalid credentials"), false);
+         }
 
          const isMatch = await bcrypt.compare(password, user.password);
-         if (!isMatch) return done(null, false, { message: "Invalid credentials" });
-
+         if (!isMatch) {
+            return done(new AppError(httpStatus.UNAUTHORIZED, "Password not match"), false);
+         }
          return done(null, user);
       } catch (error) {
          return done(error);
@@ -31,12 +36,18 @@ passport.use(
       async (accessToken, refreshToken, profile, done) => {
          console.log(profile);
          try {
-            let user = await User.findOne({ googleId: profile.id });
+            const { displayName: name, emails, photos, id } = profile;
+            const username = name.toLowerCase().split(" ").join("");
+
+            let user = await User.findOne({ googleId: id });
 
             if (!user) {
                user = new User({
-                  email: profile.emails?.[0].value,
-                  googleId: profile.id,
+                  email: emails?.[0].value,
+                  userImg: photos?.[0].value,
+                  username,
+                  name,
+                  googleId: id,
                });
                await user.save();
             }

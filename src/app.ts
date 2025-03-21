@@ -7,6 +7,7 @@ import authRoutes from "./routes/authRoutes";
 import "./config/passport";
 import notFound from "./errors/NotFound";
 import globalErrorHandler from "./errors/globalErrorHandler";
+import path from "path";
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.use(cors({}));
 app.use(session({ secret: "secret", resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
 app.use("/auth", authRoutes);
 
 app.get("/", (req, res) => {
