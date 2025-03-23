@@ -26,12 +26,12 @@ const register = catchAsync(async (req: Request, res: Response): Promise<void> =
 });
 
 const login = catchAsync(async (req: Request, res: Response) => {
-   const token = jwt.sign({ id: req.user }, process.env.JWT_SECRET!, { expiresIn: "1h" });
+   const token = jwt.sign({ user: req.user }, process.env.JWT_SECRET!, { expiresIn: "1h" });
    res.json({ token, user: req.user });
 });
 
 const googleAuthRedirect = catchAsync((req: Request, res: Response) => {
-   const token = jwt.sign({ id: req.user }, process.env.JWT_SECRET!, { expiresIn: "1h" });
+   const token = jwt.sign({ user: req.user }, process.env.JWT_SECRET!, { expiresIn: "1h" });
    res.redirect(`http://localhost:3000/dashboard?token=${token}`);
 });
 
@@ -75,7 +75,7 @@ const verifyOtp = catchAsync(async (req: Request, res: Response) => {
    res.status(httpStatus.OK).json({ message: "OTP sent to your email", resetToken });
 });
 
-const changePassword = catchAsync(async (req: Request, res: Response) => {
+const changeForgetPassword = catchAsync(async (req: Request, res: Response) => {
    const { token, newPassword } = req.body;
    if (!token || !newPassword) {
       throw new AppError(400, "Token and new password are required");
@@ -104,4 +104,11 @@ const changePassword = catchAsync(async (req: Request, res: Response) => {
    res.json({ message: "Password reset successfully" });
 });
 
-export default { register, login, googleAuthRedirect, forgetPassword, verifyOtp, changePassword };
+export default {
+   register,
+   login,
+   googleAuthRedirect,
+   forgetPassword,
+   verifyOtp,
+   changeForgetPassword,
+};

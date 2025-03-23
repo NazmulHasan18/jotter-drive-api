@@ -8,6 +8,10 @@ import "./config/passport";
 import notFound from "./errors/NotFound";
 import globalErrorHandler from "./errors/globalErrorHandler";
 import path from "path";
+import fileRoutes from "./routes/fileRoutes";
+import folderRoutes from "./routes/folderRoutes";
+import multiModelRoute from "./routes/multiModelRoutes";
+import userRouter from "./routes/userRoutes";
 
 dotenv.config();
 
@@ -20,6 +24,10 @@ app.use(passport.session());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use("/auth", authRoutes);
+app.use("/file", fileRoutes);
+app.use("/folder", folderRoutes);
+app.use("/api", multiModelRoute);
+app.use("/user", userRouter);
 
 app.get("/", (req, res) => {
    res.send("Hello World");

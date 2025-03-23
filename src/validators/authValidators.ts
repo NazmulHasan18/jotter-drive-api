@@ -61,7 +61,7 @@ export const verifySchema = z.object({
 export const forgetSchema = z.object({
    email: z.string({ message: "email is required" }).email({ message: "Invalid email format" }),
 });
-export const changePassSchema = z.object({
+export const changeForgetPassSchema = z.object({
    token: z.string({ message: "email is required" }),
    newPassword: z.string({ message: "password is required" }).min(6, { message: "Invalid credentials" }),
 });

@@ -3,7 +3,7 @@ import passport from "passport";
 import authController from "../controllers/authController";
 import validateRequest from "../middlewares/validateRequest";
 import {
-   changePassSchema,
+   changeForgetPassSchema,
    forgetSchema,
    loginSchema,
    registerSchema,
@@ -37,6 +37,10 @@ router.get(
 );
 router.post("/forget-password", validateRequest(forgetSchema), authController.forgetPassword);
 router.post("/verify-password", validateRequest(verifySchema), authController.verifyOtp);
-router.post("/change-password", validateRequest(changePassSchema), authController.changePassword);
+router.put(
+   "/change-forget-password",
+   validateRequest(changeForgetPassSchema),
+   authController.changeForgetPassword
+);
 
 export default router;

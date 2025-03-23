@@ -19,6 +19,8 @@ passport.use(
          if (!isMatch) {
             return done(new AppError(httpStatus.UNAUTHORIZED, "Password not match"), false);
          }
+         user.loggedOut = false;
+         await user.save();
          return done(null, user);
       } catch (error) {
          return done(error);
@@ -34,12 +36,11 @@ passport.use(
          callbackURL: config.google_callback_url!,
       },
       async (accessToken, refreshToken, profile, done) => {
-         console.log(profile);
          try {
             const { displayName: name, emails, photos, id } = profile;
             const username = name.toLowerCase().split(" ").join("");
 
-            let user = await User.findOne({ googleId: id });
+            let user: TUser | null = await User.findOne({ googleId: id });
 
             if (!user) {
                user = new User({
@@ -51,6 +52,8 @@ passport.use(
                });
                await user.save();
             }
+            user.loggedOut = false;
+            await user.save();
 
             return done(null, user);
          } catch (error) {
@@ -66,8 +69,17 @@ passport.serializeUser((user: any, done) => {
 
 passport.deserializeUser(async (id, done) => {
    try {
-      const user = await User.findById(id);
-      done(null, user);
+      const userDoc = await User.findById(id);
+      if (!userDoc) {
+         return done(null, false);
+      }
+
+      // Convert Mongoose document to a plain JavaScript object
+      const user = userDoc.toObject();
+
+      // Remove password for security
+
+      done(null, user); // Attach modified user object to req.user
    } catch (error) {
       done(error);
    }
