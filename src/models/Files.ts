@@ -7,6 +7,7 @@ export type TFile = {
    size: number;
    url: string;
    favorite: boolean;
+   lock: boolean;
    uploadedBy: mongoose.Schema.Types.ObjectId;
    parentFolder?: mongoose.Schema.Types.ObjectId | null; // For drive-like hierarchy
    createdAt: Date;
@@ -19,6 +20,7 @@ const fileSchema = new Schema<TFile>(
       type: { type: String, required: true },
       size: { type: Number, required: true },
       favorite: { type: Boolean, default: false },
+      lock: { type: Boolean, default: false },
       url: { type: String, required: true },
       uploadedBy: { type: Schema.Types.ObjectId, ref: "User", required: true },
       parentFolder: { type: Schema.Types.ObjectId, ref: "Folder", default: null },

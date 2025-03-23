@@ -1,0 +1,1925 @@
+{
+  "info": {
+    "title": "Jotter-drive",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "Email Password Register",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "userImg",
+            "in": "formData",
+            "format": "binary",
+            "type": "string"
+          },
+          {
+            "name": "data",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "errorSources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "path",
+                      "message"
+                    ]
+                  }
+                },
+                "err": {
+                  "type": "object",
+                  "properties": {
+                    "issues": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "expected": {
+                            "type": "string"
+                          },
+                          "received": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "expected",
+                          "received",
+                          "path",
+                          "message"
+                        ]
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "issues",
+                    "name"
+                  ]
+                },
+                "stack": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "errorSources",
+                "err",
+                "stack"
+              ]
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/auth/google": {
+      "get": {
+        "summary": "google sign in + sign up",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "login with email password",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "token": {
+                  "type": "string"
+                },
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "dob": {
+                      "type": "string"
+                    },
+                    "userImg": {
+                      "type": "string"
+                    },
+                    "googleId": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "username",
+                    "name",
+                    "email",
+                    "password",
+                    "age",
+                    "dob",
+                    "userImg",
+                    "googleId",
+                    "__v"
+                  ]
+                }
+              },
+              "required": [
+                "token",
+                "user"
+              ]
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/auth/forget-password": {
+      "post": {
+        "summary": "foget pass send otp",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/auth/change-forget-password": {
+      "put": {
+        "summary": "change forget password",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/auth/verify-password": {
+      "post": {
+        "summary": "verify otp for forget pass",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        },
+        "security": [],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/file/add-files": {
+      "post": {
+        "summary": "add files",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "files",
+            "in": "formData",
+            "format": "binary",
+            "type": "string"
+          },
+          {
+            "name": "type",
+            "in": "formData",
+            "type": "string"
+          },
+          {
+            "name": "parentFolder",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "errorSources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "err": {
+                  "type": "object",
+                  "properties": {
+                    "issues": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "expected": {
+                            "type": "string"
+                          },
+                          "received": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "path": {
+                            "type": "array",
+                            "items": {
+                              "type": "string"
+                            }
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "issues",
+                    "name"
+                  ]
+                },
+                "stack": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "errorSources",
+                "err",
+                "stack"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/file/get-files": {
+      "get": {
+        "summary": "get files",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "-createdAt, createdAt, size, -size, name, -name",
+            "required": false,
+            "type": "string",
+            "x-example": "createdAt"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "notes, images, pdfs",
+            "required": false,
+            "type": "string",
+            "x-example": "pdfs"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "favorite": {
+                        "type": "boolean"
+                      },
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "integer"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "uploadedBy": {
+                        "type": "string"
+                      },
+                      "parentFolder": {
+                        "type": "null"
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "favorite",
+                      "_id",
+                      "name",
+                      "type",
+                      "size",
+                      "url",
+                      "uploadedBy",
+                      "parentFolder",
+                      "createdAt",
+                      "updatedAt",
+                      "__v"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "files"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/file/copy-file": {
+      "post": {
+        "summary": "copy file",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "storedName": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "favorite": {
+                      "type": "boolean"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "uploadedBy": {
+                      "type": "string"
+                    },
+                    "parentFolder": {
+                      "type": "null"
+                    },
+                    "_id": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "storedName",
+                    "type",
+                    "size",
+                    "favorite",
+                    "url",
+                    "uploadedBy",
+                    "parentFolder",
+                    "_id",
+                    "createdAt",
+                    "updatedAt",
+                    "__v"
+                  ]
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "data"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/file/rename": {
+      "patch": {
+        "summary": "rename file",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "storedName": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "favorite": {
+                      "type": "boolean"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "uploadedBy": {
+                      "type": "string"
+                    },
+                    "parentFolder": {
+                      "type": "null"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "name",
+                    "storedName",
+                    "type",
+                    "size",
+                    "favorite",
+                    "url",
+                    "uploadedBy",
+                    "parentFolder",
+                    "createdAt",
+                    "updatedAt",
+                    "__v"
+                  ]
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "data"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/file/delete/files/{fileId}": {
+      "delete": {
+        "summary": "delete file",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "67dfc80e94718f475be07fa4"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "data"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/file/favorite/{fileId}": {
+      "patch": {
+        "summary": "file add to favorite",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "fileId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "67dfc79e94718f475be07f8e"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "favorite": {
+                      "type": "boolean"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "uploadedBy": {
+                      "type": "string"
+                    },
+                    "parentFolder": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "integer"
+                    },
+                    "storedName": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "name",
+                    "type",
+                    "size",
+                    "favorite",
+                    "url",
+                    "uploadedBy",
+                    "parentFolder",
+                    "createdAt",
+                    "updatedAt",
+                    "__v",
+                    "storedName"
+                  ]
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "data"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/folder/add-folder": {
+      "post": {
+        "summary": "create folder",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "errorSources": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "path": {
+                        "type": "string"
+                      },
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "err": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "statusCode"
+                  ]
+                },
+                "stack": {
+                  "type": "null"
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "errorSources",
+                "err",
+                "stack"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/folder/folders": {
+      "get": {
+        "summary": "get all folder",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "size": {
+                        "type": "integer"
+                      },
+                      "favorite": {
+                        "type": "boolean"
+                      },
+                      "_id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "createdBy": {
+                        "type": "string"
+                      },
+                      "parentFolder": {
+                        "type": "string",
+                        "x-nullable": true
+                      },
+                      "createdAt": {
+                        "type": "string"
+                      },
+                      "updatedAt": {
+                        "type": "string"
+                      },
+                      "__v": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "size",
+                      "favorite",
+                      "_id",
+                      "name",
+                      "createdBy",
+                      "parentFolder",
+                      "createdAt",
+                      "updatedAt",
+                      "__v"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "files"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/folder/favorite/{folderId}": {
+      "patch": {
+        "summary": "folder add to favorite",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "folderId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "67dfc77c94718f475be07f89"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "integer"
+                    },
+                    "favorite": {
+                      "type": "boolean"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "uploadedBy": {
+                      "type": "string"
+                    },
+                    "parentFolder": {
+                      "type": "string"
+                    },
+                    "createdAt": {
+                      "type": "string"
+                    },
+                    "updatedAt": {
+                      "type": "string"
+                    },
+                    "__v": {
+                      "type": "integer"
+                    },
+                    "storedName": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "name",
+                    "type",
+                    "size",
+                    "favorite",
+                    "url",
+                    "uploadedBy",
+                    "parentFolder",
+                    "createdAt",
+                    "updatedAt",
+                    "__v",
+                    "storedName"
+                  ]
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "data"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/get-file-folder": {
+      "get": {
+        "summary": "get all file folder ",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "favorite",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "true"
+          },
+          {
+            "name": "recent",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "true"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-03-22"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "createdAt"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "folders": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "files",
+                "folders"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/get-lock-file-folder": {
+      "get": {
+        "summary": "get all lock file folder  ",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "favorite",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "true"
+          },
+          {
+            "name": "recent",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "true"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "2025-03-22"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "createdAt"
+          },
+          {
+            "name": "token",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2N2RmYzQ2ZDhjYWRkNjIzM2Q4YTNlNmEiLCJhY2Nlc3NMb2NrIjp0cnVlLCJpYXQiOjE3NDI3MjYxNzgsImV4cCI6MTc0MjcyNjIzOH0.W1H9OubhmdH0RVOtwOd5j_IibQmDH2hQCd_h8N__VZk"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "folders": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "files",
+                "folders"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/get-file-of-folder": {
+      "get": {
+        "summary": "get all file of folder ",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "parentFolder",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "67dfc77c94718f475be07f89"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "",
+            "required": false,
+            "type": "string",
+            "x-example": "createdAt"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "folders": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "files",
+                "folders"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/dashboard": {
+      "get": {
+        "summary": "dashboard api",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string"
+                    },
+                    "username": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "age": {
+                      "type": "integer"
+                    },
+                    "dob": {
+                      "type": "string"
+                    },
+                    "userImg": {
+                      "type": "string"
+                    },
+                    "googleId": {
+                      "type": "string"
+                    },
+                    "totalStorage": {
+                      "type": "integer"
+                    },
+                    "usedStorage": {
+                      "type": "integer"
+                    },
+                    "loggedOut": {
+                      "type": "boolean"
+                    },
+                    "__v": {
+                      "type": "integer"
+                    },
+                    "passChangeAt": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "_id",
+                    "username",
+                    "email",
+                    "password",
+                    "age",
+                    "dob",
+                    "userImg",
+                    "googleId",
+                    "totalStorage",
+                    "usedStorage",
+                    "loggedOut",
+                    "__v",
+                    "passChangeAt"
+                  ]
+                },
+                "files": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string"
+                      },
+                      "count": {
+                        "type": "integer"
+                      },
+                      "totalSize": {
+                        "type": "integer"
+                      }
+                    },
+                    "required": [
+                      "_id",
+                      "count",
+                      "totalSize"
+                    ]
+                  }
+                },
+                "folders": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "null"
+                      },
+                      "count": {
+                        "type": "integer"
+                      },
+                      "totalSize": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "user",
+                "files",
+                "folders"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/add-to-lock/{id}": {
+      "put": {
+        "summary": "add to lock",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "67dfc87694718f475be07fb9"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/api/remove-from-lock/{id}": {
+      "put": {
+        "summary": "remove from lock",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "type": "string",
+            "x-example": "67dfc87694718f475be07fb9"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "success",
+                "message",
+                "error"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/change-password": {
+      "put": {
+        "summary": "change password",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/update-user": {
+      "put": {
+        "summary": "update user",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "format": "binary",
+            "type": "string"
+          },
+          {
+            "name": "username",
+            "in": "formData",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/logout": {
+      "put": {
+        "summary": "logout",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/delete-user": {
+      "delete": {
+        "summary": "delete user",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    },
+    "/user/lock-folder": {
+      "post": {
+        "summary": "access lock folder token",
+        "deprecated": false,
+        "description": "",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {}
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {},
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message",
+                "token"
+              ]
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ]
+      }
+    }
+  },
+  "security": [],
+  "swagger": "2.0",
+  "host": "localhost:4000",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/",
+  "definitions": {},
+  "securityDefinitions": {
+    "bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "x-components": {}
+}

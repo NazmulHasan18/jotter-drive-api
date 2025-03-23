@@ -5,7 +5,6 @@ import User from "../models/User";
 import AppError from "../errors/AppError";
 import File from "../models/Files";
 import catchAsync from "../utils/catchAsync";
-import moment from "moment";
 import mongoose from "mongoose";
 import Folder from "../models/Folder";
 
@@ -73,6 +72,7 @@ const createFile = catchAsync(async (req: Request, res: Response) => {
 type FileQueryFilter = {
    type?: string;
    favorite?: boolean;
+   lock?: boolean;
    createdAt?: { $gte?: Date; $lte?: Date }; // Optional range filter
    sort?: string;
    uploadedBy?: mongoose.Types.ObjectId;
@@ -82,7 +82,7 @@ const getFiles = catchAsync(async (req, res) => {
    const userId = req.user?._id;
    const { type, sort = "-createdAt" } = req.query;
 
-   const filter: FileQueryFilter = { uploadedBy: userId };
+   const filter: FileQueryFilter = { uploadedBy: userId, lock: false };
 
    if (type && ["images", "notes", "pdfs"].includes(type as string)) {
       filter.type = type as string;

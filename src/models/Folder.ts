@@ -6,6 +6,7 @@ export type TFolder = {
    parentFolder?: mongoose.Schema.Types.ObjectId | null; // Nullable for root folders
    createdAt: Date;
    favorite: boolean;
+   lock: boolean;
    size: number;
 };
 
@@ -16,6 +17,7 @@ const folderSchema = new Schema<TFolder>(
       parentFolder: { type: Schema.Types.ObjectId, ref: "Folder", default: null },
       size: { type: Number, default: 0 },
       favorite: { type: Boolean, default: false },
+      lock: { type: Boolean, default: false },
    },
    { timestamps: true }
 );

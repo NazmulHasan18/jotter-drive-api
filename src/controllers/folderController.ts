@@ -32,7 +32,7 @@ const getFolders = catchAsync(async (req: Request, res: Response) => {
    const userId = req.user?._id;
    const { sort = "-createdAt" } = req.query;
 
-   const files = await Folder.find({ createdBy: userId }).sort(sort as string);
+   const files = await Folder.find({ createdBy: userId, lock: false }).sort(sort as string);
 
    res.status(200).json({ files });
 });

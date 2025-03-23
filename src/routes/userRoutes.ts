@@ -14,6 +14,7 @@ router.put(
 router.put("/logout", authenticate, userController.logout);
 router.put("/update-user", authenticate, upload.single("file"), userController.updateUser);
 router.delete("/delete-user", authenticate, userController.deleteUser);
+router.post("/lock-folder", authenticate, userController.accessLockFolder);
 
 const userRouter = router;
 export default userRouter;

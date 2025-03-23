@@ -6,6 +6,7 @@ import bcrypt from "bcryptjs";
 import File from "../models/Files";
 import Folder from "../models/Folder";
 import fs from "fs";
+import jwt from "jsonwebtoken";
 
 const changePassword = catchAsync(async (req: Request, res: Response) => {
    const { oldPassword, newPassword } = req.body;
@@ -90,4 +91,27 @@ const deleteUser = catchAsync(async (req: Request, res: Response) => {
    res.json({ message: "User deleted successfully" });
 });
 
-export default { changePassword, logout, updateUser, deleteUser };
+const accessLockFolder = catchAsync(async (req: Request, res: Response) => {
+   const { password } = req.body;
+   const userId = req.user?._id;
+   // Verify JWT token
+
+   // Find user
+   const user = await User.findById(userId);
+   if (!user) {
+      throw new AppError(404, "User not found");
+   }
+
+   //
+   const isMatch = await bcrypt.compare(password, user.password);
+   if (!isMatch) {
+      throw new AppError(400, "You password do not match.");
+   }
+
+   const token = jwt.sign({ userId: req.user?._id, accessLock: true }, process.env.JWT_SECRET!, {
+      expiresIn: "1m",
+   });
+
+   res.json({ message: "Password verify successfully", token });
+});
+export default { changePassword, logout, updateUser, deleteUser, accessLockFolder };
