@@ -67,6 +67,10 @@ Create a `.env` file and add:
 PORT=4000
 DATABASE_URL=mongodb://localhost:27017/jotterDrive
 JWT_SECRET=your_jwt_secret
+
+GOOGLE_CLIENT_ID
+GOOGLE_CLIENT_SECRET
+GOOGLE_CALLBACK_URL
 ```
 
 ## Run locally
